@@ -47,3 +47,21 @@ characters_df.rename(columns={
 
 # Other way of renaming
 characters_df.columns = ['character_name', 'character_age', 'character_weight', 'is_jedi']
+
+# Series
+# Series is a one-dimensional array-like object containing data and labels of columns or rows
+# 
+# Selecting a whole column
+dataset['ESTADO']
+dataset.ESTADO
+type(dataset['ESTADO'])
+
+# Selecting info by index
+dataset.iloc[0]
+type(dataset.iloc[0])
+
+# Creating a Series
+pd.Series([5.5, 6.0, 9.5])
+
+# Changing name of indexes in a Series
+pd.Series([5.5, 6.0, 9.5], index=['exam1', 'exam2', 'project'], name='Luke Skywalker scores')
