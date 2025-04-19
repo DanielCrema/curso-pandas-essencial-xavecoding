@@ -113,3 +113,13 @@ satisfaction_research = pd.DataFrame({
     'neutral': [10, 20, 30]
 }, index=['XboxOne', 'Playstation5', 'NintendoSwitch'])
 satisfaction_research.head()
+
+# Selecting one or more samples (indexing)
+# 
+# Index based selection
+dataset.iloc[1] # Selects index 1
+dataset.iloc[:6] # Selects first 5 indexes
+dataset.iloc[10:16] # Selects indexes from 10 to 15
+dataset.iloc[[1, 5, 10, 15]] # Selects indexes 1, 5, 10 and 15
+dataset.iloc[[5, 1, 15, 10]] # Selects the same, but out of order
+dataset.iloc[1][4] # Selects index 1 and column 4
