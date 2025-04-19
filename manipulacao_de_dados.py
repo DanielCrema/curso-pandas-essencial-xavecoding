@@ -144,6 +144,7 @@ dataset.loc[:, 'ESTADO']
 dataset[['PRODUTO', 'ESTADO', 'REGIÃO']]
 
 # Conditional Selection: Filtering samples
+# 
 dataset['ESTADO'].unique() # Shows unique values for the attribute 'ESTADO'
 dataset['ESTADO'].value_counts() # Shows the number of occurrences of each unique value for the attribute 'ESTADO'
 dataset['ESTADO'] == 'SAO PAULO' # Returns a Series with booleans True or False for each sample
@@ -153,13 +154,35 @@ dataset[selection] # Returns the samples that have 'ESTADO' equal to 'SAO PAULO'
 dataset.loc[selection] # Same as above using loc
 
 # Using the .query() method
-postos_sp = dataset.query('ESTADO == "SAO PAULO"') # Returns the samples that have 'ESTADO' equal to 'SAO PAULO'
-postos_sp.head()
-postos_sp.shape
+# 
+gas_stations_sp = dataset.query('ESTADO == "SAO PAULO"') # Returns the samples that have 'ESTADO' equal to 'SAO PAULO'
+gas_stations_sp.head()
+gas_stations_sp.shape
 
 # Resetting indexes
-postos_sp.reset_index() # Returns the dataframe with the index reset and a new column 'index' with the original indexes at column [0]
-postos_sp.reset_index(drop=True) # Drop index column
-postos_sp.reset_index(drop=True, inplace=True) # Drop index column and update dataframe inplace
-postos_sp = dataset.query('ESTADO == "SAO PAULO"').reset_index(drop=True) # Reset index and drop index column in one line
-postos_sp.head()
+gas_stations_sp.reset_index() # Returns the dataframe with the index reset and a new column 'index' with the original indexes at column [0]
+gas_stations_sp.reset_index(drop=True) # Drop index column
+gas_stations_sp.reset_index(drop=True, inplace=True) # Drop index column and update dataframe inplace
+gas_stations_sp = dataset.query('ESTADO == "SAO PAULO"').reset_index(drop=True) # Reset index and drop index column in one line
+dataset.query('ESTADO == "SAO PAULO" or ESTADO == "RIO DE JANEIRO"') # Returns the samples that have 'ESTADO' equal to 'SAO PAULO' or 'RIO DE JANEIRO'
+gas_stations_sp.head()
+
+# Conditional Selection with multiple conditions
+# 
+dataset['ESTADO'].unique()
+dataset['ESTADO'] == 'RIO DE JANEIRO' # Returns a Series with booleans True or False for each sample
+dataset['PREÇO MÉDIO REVENDA'] > 2.0 # Returns a Series with booleans True or False for each sample
+selection = (dataset['ESTADO'] == 'RIO DE JANEIRO') & (dataset['PREÇO MÉDIO REVENDA'] > 2) # Returns a Series with booleans True or False for each sample
+(dataset['ESTADO'] == 'RIO DE JANEIRO') & (dataset['PREÇO MÉDIO REVENDA'] > 2) # Returns a Series with booleans True or False for each sample
+(dataset['ESTADO'] == 'RIO DE JANEIRO') | ~ (dataset['PREÇO MÉDIO REVENDA'] > 2) # Returns a Series with booleans True or False for each sample
+dataset['ESTADO']
+dataset['PREÇO MÉDIO REVENDA']
+dataset['ESTADO' == 'RIO DE JANEIRO' & dataset['PREÇO MÉDIO REVENDA' > 2]]
+dataset[selection].reset_index(drop=True) # Returns the samples that have 'ESTADO' equal to 'RIO DE JANEIRO' and 'PREÇO MÉDIO REVENDA' greater than 2
+
+# Going deeper
+selection_1 = dataset['ESTADO'] == 'RIO DE JANEIRO'
+gas_stations_rj = dataset[selection_1]
+selection_2 = gas_stations_rj['PREÇO MÉDIO REVENDA'] > 2
+gas_stations_rj_minimun_price_greater_than_2 = gas_stations_rj[selection_2]
+gas_stations_rj_minimun_price_greater_than_2.reset_index(drop=True)
