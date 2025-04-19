@@ -65,3 +65,24 @@ pd.Series([5.5, 6.0, 9.5])
 
 # Changing name of indexes in a Series
 pd.Series([5.5, 6.0, 9.5], index=['exam1', 'exam2', 'project'], name='Luke Skywalker scores')
+
+# Attributing Data
+# 
+# Attributing constants
+product_view = dataset['PRODUTO']
+product_view.head()
+
+# Attributing a constant to all rows
+dataset_copy_bkp = dataset.copy()
+dataset['PRODUTO'] = 'Combustível'
+dataset['PRODUTO'].head()
+
+# Attributing lists or series
+dataset.shape
+new_products = [f'Produto {i}' for i in range(dataset.shape[0])]
+dataset['PRODUTO'] = new_products
+dataset['PRODUTO']
+
+# Recovering from backup
+dataset['PRODUTO'] = dataset_copy_bkp['PRODUTO']
+dataset['PRODUTO']
