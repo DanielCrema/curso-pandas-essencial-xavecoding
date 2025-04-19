@@ -402,3 +402,17 @@ df
 df.agg([sum, min])
 groups = dataset.groupby('REGIÃO')
 groups['PREÇO MÉDIO REVENDA'].agg([min, max])
+
+# Ordering
+# 
+scores = pd.DataFrame({
+    'name': ['João', 'Maria', 'José', 'Alice'],
+    'age': [20, 21, 19, 20],
+    'final_score': [5.0, 10.0, 6.0, 10.0]
+})
+scores
+
+scores.sort_values(by='final_score', ascending=False) # Returns a copy of the dataframe
+scores.sort_values(by=['final_score', 'name'], ascending=[False, True]) # Sort by multiple columns, returns a copy
+scores.sort_values(by=['final_score', 'name'], ascending=[False, True], inplace=True) # Sorts the dataframe inplace
+scores
