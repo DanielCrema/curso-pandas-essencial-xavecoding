@@ -86,3 +86,18 @@ dataset['PRODUTO']
 # Recovering from backup
 dataset['PRODUTO'] = dataset_copy_bkp['PRODUTO']
 dataset['PRODUTO']
+
+# Creating new columns
+# 
+# From constant
+dataset['crazy column'] = 'DEFAULT'
+dataset['crazy column']
+
+# From a list
+dataset['crazy column from list'] = range(dataset.shape[0])
+dataset['crazy column from list']
+dataset['lenght error'] = range(dataset.shape[0] + 1) # Returns an error
+
+# Creating a column from an existing one
+dataset['PREÇO MÉDIO REVENDA (dólares)'] = dataset['PREÇO MÉDIO REVENDA'] * 6.0
+dataset['PREÇO MÉDIO REVENDA (dólares)']
