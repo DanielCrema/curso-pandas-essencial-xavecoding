@@ -7,10 +7,10 @@ I have made it as a complementary to the *data science* course of the **Oracle N
 ##
 
 ### Teacher:
-[🔗 **Samuel Martins (Samuka)**](https://github.com/xavecoding)
+🔗 [**Samuel Martins (Samuka)**](https://github.com/xavecoding)
 
 ### Student:
-[🔗 **Daniel Crema**](https://github.com/DanielCrema)
+🔗 [**Daniel Crema**](https://github.com/DanielCrema)
 
 
 ##
