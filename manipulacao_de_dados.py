@@ -186,3 +186,39 @@ gas_stations_rj = dataset[selection_1]
 selection_2 = gas_stations_rj['PREÇO MÉDIO REVENDA'] > 2
 gas_stations_rj_minimun_price_greater_than_2 = gas_stations_rj[selection_2]
 gas_stations_rj_minimun_price_greater_than_2.reset_index(drop=True)
+
+# Selecting samples of stations from SP and RJ with Common Gas above R$2.00
+# 
+# Slow inneficient way
+dataset.shape
+dataset.head()
+selection_1 = (dataset['ESTADO'] == 'SAO PAULO') | (dataset['ESTADO'] == 'RIO DE JANEIRO')
+selection_1
+selection_2 = dataset['PRODUTO'] == 'GASOLINA COMUM'
+selection_2
+selection_3 = dataset['PREÇO MÉDIO REVENDA'] > 2.0
+selection_3
+final_selection = selection_1 & selection_2 & selection_3
+final_selection
+# Filtering
+filtered_dataset = dataset[final_selection]
+print(filtered_dataset['ESTADO'].unique())
+print(filtered_dataset['PRODUTO'].unique())
+
+# Fast and efficient way
+dataset['ESTADO'].value_counts() # SP and RJ both feature 4263 gas stations (sums up to 8526)
+dataset['PRODUTO'].value_counts() # GASOLINA COMUM counts 21194
+# 
+# Most efficient way is to filter ESTADO first
+selection_1 = (dataset['ESTADO'] == 'SAO PAULO') | (dataset['ESTADO'] == 'RIO DE JANEIRO') # 8526
+selection_1 = dataset['ESTADO'].isin(['SAO PAULO', 'RIO DE JANEIRO']) # Same as above
+gas_stations_sp_rj = dataset[selection_1] # 8526
+selection_2 = (gas_stations_sp_rj['PRODUTO'] == 'GASOLINA COMUM') # 21194
+selection_2
+gas_stations_sp_rj['PRODUTO'].value_counts() # GASOLINA COMUM == 1570
+gas_stations_sp_rj_gasoline = gas_stations_sp_rj[selection_2] # 1570
+gas_stations_sp_rj_gasoline
+(gas_stations_sp_rj_gasoline['PREÇO MÉDIO REVENDA'] > 2.0).value_counts() # True = 1564
+selection_3 = gas_stations_sp_rj_gasoline['PREÇO MÉDIO REVENDA'] > 2.0
+gas_stations_sp_rj_gasoline_prices_greater_than_2 = gas_stations_sp_rj_gasoline[selection_3]
+gas_stations_sp_rj_gasoline_prices_greater_than_2
