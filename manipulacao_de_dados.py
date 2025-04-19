@@ -242,3 +242,27 @@ dataset.query('ANO in @years_list')
 # => Inneficient method
 for index, row in dataset.head(10).iterrows(): # Iterates over the first 10 rows of the dataset
     print(f'Index {index} -> {row['ESTADO']}')
+
+
+# Data cleaning
+#
+ 
+# Preparation of data
+# 
+# Treating observations with empty values (null/NaN) in the dataset
+dataset.info()
+
+# Converting types of attributes
+# 
+# Converting dates
+dataset['DATA INICIAL']
+dataset['DATA FINAL']
+dataset['DATA INICIAL'] = pd.to_datetime(dataset['DATA INICIAL'])
+dataset['DATA FINAL'] = pd.to_datetime(dataset['DATA FINAL'])
+dataset.info()
+
+# Converting string attributes to numbers
+for attribute in ['MARGEM MÉDIA REVENDA', 'PREÇO MÉDIO DISTRIBUIÇÃO', 'DESVIO PADRÃO DISTRIBUIÇÃO', 'PREÇO MÍNIMO DISTRIBUIÇÃO', 'PREÇO MÁXIMO DISTRIBUIÇÃO', 'COEF DE VARIAÇÃO DISTRIBUIÇÃO']:
+    # Converts to float, in case of error, converts to NaN
+    dataset[attribute] = pd.to_numeric(dataset[attribute], errors='coerce')
+dataset.info()
