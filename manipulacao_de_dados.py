@@ -111,7 +111,7 @@ satisfaction_research = pd.DataFrame({
     'good': [10, 20, 30],
     'bad': [10, 20, 30],
     'neutral': [10, 20, 30]
-}, index=['XboxOne', 'Playstation5', 'NintendoSwitch'])
+}, index=['xboxOne', 'Playstation5', 'NintendoSwitch'])
 satisfaction_research.head()
 
 # Selecting one or more samples (indexing)
@@ -123,3 +123,10 @@ dataset.iloc[10:16] # Selects indexes from 10 to 15
 dataset.iloc[[1, 5, 10, 15]] # Selects indexes 1, 5, 10 and 15
 dataset.iloc[[5, 1, 15, 10]] # Selects the same, but out of order
 dataset.iloc[1][4] # Selects index 1 and column 4
+
+# Label based selection
+satisfaction_research.loc['xboxOne'] # Returns the row with label 'xboxOne'
+satisfaction_research.loc['Playstation5']['bad'] # Returns the value of the 'bad' column in the row with label 'Playstation5'
+satisfaction_research.loc[['xboxOne', 'NintendoSwitch']] # Returns the rows with labels 'XboxOne' and 'NintendoSwitch'
+satisfaction_research[['good', 'bad']] # Returns the columns with labels 'good' and 'bad'
+satisfaction_research.loc[:, ['good', 'bad']] # Same using loc
