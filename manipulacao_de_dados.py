@@ -222,3 +222,23 @@ gas_stations_sp_rj_gasoline
 selection_3 = gas_stations_sp_rj_gasoline['PREÇO MÉDIO REVENDA'] > 2.0
 gas_stations_sp_rj_gasoline_prices_greater_than_2 = gas_stations_sp_rj_gasoline[selection_3]
 gas_stations_sp_rj_gasoline_prices_greater_than_2
+
+# Selecting samples from years 2008, 2010 and 2012
+# 
+# Alternative 1
+selection = (dataset['ANO'] == 2008) | (dataset['ANO'] == 2010) | (dataset['ANO'] == 2012)
+dataset[selection]['ANO'].unique()
+dataset[selection]
+
+# Alternative 2
+years_list =  [2008, 2010, 2012]
+selection = dataset['ANO'].isin(years_list) # Returns a Series with booleans True or False for each sample
+dataset[selection]
+
+# Alternative 3
+dataset.query('ANO in @years_list')
+
+# Iterating with DataFrames
+# => Inneficient method
+for index, row in dataset.head(10).iterrows(): # Iterates over the first 10 rows of the dataset
+    print(f'Index {index} -> {row['ESTADO']}')
