@@ -315,28 +315,4 @@ dataset_pre.to_csv('./datasets/GasPricesinBrazil_2004-2019_preprocessed.csv', in
 # Descriptive statistics
 # 
 dataset = pd.read_csv('./datasets/GasPricesinBrazil_2004-2019_preprocessed.csv')
-dataset.describe() # Describe all the Dataframe, returns a stats dataframe
-dataset.describe()['PREÇO MÉDIO REVENDA'] # Generate the stats dataframe and then filter
-dataset['PREÇO MÉDIO REVENDA'].describe() # Filter and then describe -> more efficient
-stats = dataset.describe() # Save in a variable
-stats[['PREÇO MÉDIO REVENDA', 'PREÇO MÁXIMO REVENDA', 'PREÇO MÉDIO DISTRIBUIÇÃO']] # Filter from the variable
-dataset[['PREÇO MÉDIO REVENDA', 'PREÇO MÁXIMO REVENDA', 'PREÇO MÉDIO DISTRIBUIÇÃO']].describe() # Filter and then describe -> more efficient
-stats.loc[['min', 'max', 'mean']] # Filter from the variables
-stats.loc[['min', 'max', 'mean'], 'PREÇO MÉDIO REVENDA'] # Filter from the variables and then filter by column
-stats.loc[['min', 'max', 'mean'], ['PREÇO MÉDIO REVENDA', 'PREÇO MÉDIO DISTRIBUIÇÃO']] # Filter from the variables and then filter by column
-
-# Isolated descriptive statistics
-# 
-# Which is the smallest PREÇO MÍNIMO REVENDA
-dataset['PREÇO MÍNIMO REVENDA'].min()
-# Which is the mean value for PREÇO MÍNIMO REVENDA
-mean = dataset['PREÇO MÍNIMO REVENDA'].mean()
-# Which is the standard deviation for PREÇO MÍNIMO REVENDA
-std = dataset['PREÇO MÍNIMO REVENDA'].std()
-print(f'The mean for PREÇO MÍNIMO REVENDA is {mean:.2f} and the standard deviation is {std:.2f}')
-# Which are the STATES considered?
-dataset['ESTADO'].unique()
-sorted(dataset['ESTADO'].unique()) # Sort the unique values
-# How many registers are there?
-dataset['ESTADO'].value_counts() # Returns a Series with the number of registers for each unique value, default is descending
-dataset['ESTADO'].value_counts().to_frame() # Converts to DataFrame
+dataset.info()
