@@ -369,3 +369,36 @@ names = pd.Series(['João', 'Maria', 'Alice', 'Pedro'])
 names.map(lambda x: x.upper())
 names.str.upper() # Native easier way
 names # The original is not altered
+
+# Grouping
+# 
+dataset.columns
+groups = dataset.groupby('REGIÃO')
+groups
+groups.groups # Returns a dictionary with the groups
+groups.indices # Returns a dictionary with the indices and shape of each group
+groups.get_group('CENTRO OESTE')
+groups.describe() # Returns a dataframe with the statistics for each group, hard to analyze
+groups.mean(numeric_only=True) # Returns a dataframe with the mean for each group
+groups.min(numeric_only=True) # Returns a dataframe with the min for each group
+dataset.groupby('REGIÃO').min(numeric_only=True) # Easier way
+
+# Grouping by multiple attributes
+# Which is the mean price for each type of commodity in each state?
+groups = dataset.groupby(['REGIÃO', 'PRODUTO'])
+groups.groups
+groups.mean(numeric_only=True)['PREÇO MÉDIO REVENDA'] # Returns a dataframe with the mean for each group
+groups['PREÇO MÉDIO REVENDA'].mean(numeric_only=True) # More efficient way
+groups['PREÇO MÉDIO REVENDA'].describe() # Describes the column for each group
+groups.get_group(('CENTRO OESTE', 'ETANOL HIDRATADO')).mean() # Returns a scalar containing the mean value for the selected group and column
+
+# Aggfunction
+df = pd.DataFrame([[1, 2, 3],
+                   [4, 5, 6],
+                   [7, 8, 9],
+                   [None, None, None]],
+                  columns=['A', 'B', 'C'])
+df
+df.agg([sum, min])
+groups = dataset.groupby('REGIÃO')
+groups['PREÇO MÉDIO REVENDA'].agg([min, max])
