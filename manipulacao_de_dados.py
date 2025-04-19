@@ -415,4 +415,34 @@ scores
 scores.sort_values(by='final_score', ascending=False) # Returns a copy of the dataframe
 scores.sort_values(by=['final_score', 'name'], ascending=[False, True]) # Sort by multiple columns, returns a copy
 scores.sort_values(by=['final_score', 'name'], ascending=[False, True], inplace=True) # Sorts the dataframe inplace
-scores
+scores.reset_index(drop=True) # Resets the index, returns a copy
+scores.reset_index(drop=True, inplace=True) # Resets the index inplace
+
+# # #
+# Exercises
+# # # 
+
+dataset = pd.read_csv('./datasets/GasPricesinBrazil_2004-2019_preprocessed.csv')
+
+# Remove the year of 2019 (not complete)
+df = dataset[dataset['ANO'] != 2019]
+df
+
+# How many registers are there for each product in each region?
+registers_products_region = df.groupby(['PRODUTO', 'REGIÃO']).size().to_frame('REGISTROS')
+registers_products_region
+
+# How did the prices of Gas at São Paulo varied in 2018?
+df[(df['ESTADO'] == 'SAO PAULO') & (df['ANO'] == 2018) & (df['PRODUTO'] == 'GASOLINA COMUM')]['PREÇO MÉDIO REVENDA'].describe().to_frame()
+
+# How did the prices for Gas and Etanol at São Paulo varied in 2018?
+df[((df['ESTADO'] == 'SAO PAULO') & (df['ANO'] == 2018))][df['PRODUTO'].isin(['GASOLINA COMUM', 'ETANOL HIDRATADO'])][['PRODUTO', 'PREÇO MÉDIO REVENDA']].describe() # For both products
+df[((df['ESTADO'] == 'SAO PAULO') & (df['ANO'] == 2018))][df['PRODUTO'].isin(['GASOLINA COMUM', 'ETANOL HIDRATADO'])][['PRODUTO', 'PREÇO MÉDIO REVENDA']].groupby('PRODUTO').describe() # For each type of product
+
+# To further study in the future:
+# # #
+# 
+# 1. Join
+# 2. Concat
+# 3. Plot
+# 4. Data cleaning
