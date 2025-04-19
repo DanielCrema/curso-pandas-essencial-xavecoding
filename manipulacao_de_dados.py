@@ -340,3 +340,32 @@ sorted(dataset['ESTADO'].unique()) # Sort the unique values
 # How many registers are there?
 dataset['ESTADO'].value_counts() # Returns a Series with the number of registers for each unique value, default is descending
 dataset['ESTADO'].value_counts().to_frame() # Converts to DataFrame
+
+# Executing functions for each item in a DataFrame or Series
+# 
+df = pd.DataFrame({ 'A': [1, 2, 3, 4], 
+                    'B': [10, 20, 30, 40],
+                    'C': [100, 200, 300, 400]}, 
+                     index=['Linha 1', 'Linha 2', 'Linha 3', 'Linha 4'])
+
+def our_sum(series):
+    return series.sum()
+
+df['SUM(A, B, C)'] = df.apply(our_sum, axis=1) # Apply the function to each row
+df.loc['Linha 5'] = df.apply(our_sum, axis=0) # Apply the function to each column
+df
+
+# Using lambda
+df['MEAN(A, B, C)'] = df[['A', 'B', 'C']].apply(lambda series: series.mean(), axis=1)
+df['C * 2'] = df['C'].apply(lambda x: x * 2) # Apply lambda for each element of column 'C'
+df['A * 2'] = df['A'] * 2 # Easier way
+df
+
+# Applymap (only for dataframes)
+df.applymap(lambda x: x ** 2) # Returns a new datafram with the results
+
+# Map (only for series)
+names = pd.Series(['João', 'Maria', 'Alice', 'Pedro'])
+names.map(lambda x: x.upper())
+names.str.upper() # Native easier way
+names # The original is not altered
