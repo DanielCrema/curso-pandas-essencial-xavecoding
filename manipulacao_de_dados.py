@@ -151,3 +151,15 @@ selection = dataset['ESTADO'] == 'SAO PAULO' # Stores the result of the previous
 selection.shape
 dataset[selection] # Returns the samples that have 'ESTADO' equal to 'SAO PAULO'
 dataset.loc[selection] # Same as above using loc
+
+# Using the .query() method
+postos_sp = dataset.query('ESTADO == "SAO PAULO"') # Returns the samples that have 'ESTADO' equal to 'SAO PAULO'
+postos_sp.head()
+postos_sp.shape
+
+# Resetting indexes
+postos_sp.reset_index() # Returns the dataframe with the index reset and a new column 'index' with the original indexes at column [0]
+postos_sp.reset_index(drop=True) # Drop index column
+postos_sp.reset_index(drop=True, inplace=True) # Drop index column and update dataframe inplace
+postos_sp = dataset.query('ESTADO == "SAO PAULO"').reset_index(drop=True) # Reset index and drop index column in one line
+postos_sp.head()
