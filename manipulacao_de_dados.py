@@ -142,3 +142,12 @@ dataset.loc[:, 'ESTADO']
 
 # Selecting multiple columns
 dataset[['PRODUTO', 'ESTADO', 'REGIÃO']]
+
+# Conditional Selection: Filtering samples
+dataset['ESTADO'].unique() # Shows unique values for the attribute 'ESTADO'
+dataset['ESTADO'].value_counts() # Shows the number of occurrences of each unique value for the attribute 'ESTADO'
+dataset['ESTADO'] == 'SAO PAULO' # Returns a Series with booleans True or False for each sample
+selection = dataset['ESTADO'] == 'SAO PAULO' # Stores the result of the previous operation in a variable
+selection.shape
+dataset[selection] # Returns the samples that have 'ESTADO' equal to 'SAO PAULO'
+dataset.loc[selection] # Same as above using loc
