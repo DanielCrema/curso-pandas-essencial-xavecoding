@@ -130,3 +130,15 @@ satisfaction_research.loc['Playstation5']['bad'] # Returns the value of the 'bad
 satisfaction_research.loc[['xboxOne', 'NintendoSwitch']] # Returns the rows with labels 'XboxOne' and 'NintendoSwitch'
 satisfaction_research[['good', 'bad']] # Returns the columns with labels 'good' and 'bad'
 satisfaction_research.loc[:, ['good', 'bad']] # Same using loc
+
+# Selecting one or more attributes (columns)
+# 
+dataset.head()
+
+# Selecting one column
+dataset['ESTADO']
+dataset.ESTADO # Only works when column name has no invalid characters (spaces, special characters, etc.)
+dataset.loc[:, 'ESTADO']
+
+# Selecting multiple columns
+dataset[['PRODUTO', 'ESTADO', 'REGIÃO']]
