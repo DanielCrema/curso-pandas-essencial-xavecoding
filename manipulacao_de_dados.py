@@ -101,3 +101,15 @@ dataset['lenght error'] = range(dataset.shape[0] + 1) # Returns an error
 # Creating a column from an existing one
 dataset['PREÇO MÉDIO REVENDA (dólares)'] = dataset['PREÇO MÉDIO REVENDA'] * 6.0
 dataset['PREÇO MÉDIO REVENDA (dólares)']
+
+# Indexes
+# 
+dataset.index
+
+# Example of Dataframe with textual indexes (labels)
+satisfaction_research = pd.DataFrame({
+    'good': [10, 20, 30],
+    'bad': [10, 20, 30],
+    'neutral': [10, 20, 30]
+}, index=['XboxOne', 'Playstation5', 'NintendoSwitch'])
+satisfaction_research.head()
