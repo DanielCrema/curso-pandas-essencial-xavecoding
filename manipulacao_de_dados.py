@@ -249,20 +249,51 @@ for index, row in dataset.head(10).iterrows(): # Iterates over the first 10 rows
  
 # Preparation of data
 # 
-# Treating observations with empty values (null/NaN) in the dataset
 dataset.info()
+dataset_pre = dataset.copy()
 
 # Converting types of attributes
 # 
 # Converting dates
-dataset['DATA INICIAL']
-dataset['DATA FINAL']
-dataset['DATA INICIAL'] = pd.to_datetime(dataset['DATA INICIAL'])
-dataset['DATA FINAL'] = pd.to_datetime(dataset['DATA FINAL'])
-dataset.info()
+dataset_pre['DATA INICIAL']
+dataset_pre['DATA FINAL']
+dataset_pre['DATA INICIAL'] = pd.to_datetime(dataset_pre['DATA INICIAL'])
+dataset_pre['DATA FINAL'] = pd.to_datetime(dataset_pre['DATA FINAL'])
+dataset_pre.info()
 
 # Converting string attributes to numbers
 for attribute in ['MARGEM MÉDIA REVENDA', 'PREÇO MÉDIO DISTRIBUIÇÃO', 'DESVIO PADRÃO DISTRIBUIÇÃO', 'PREÇO MÍNIMO DISTRIBUIÇÃO', 'PREÇO MÁXIMO DISTRIBUIÇÃO', 'COEF DE VARIAÇÃO DISTRIBUIÇÃO']:
     # Converts to float, in case of error, converts to NaN
-    dataset[attribute] = pd.to_numeric(dataset[attribute], errors='coerce')
-dataset.info()
+    dataset_pre[attribute] = pd.to_numeric(dataset_pre[attribute], errors='coerce')
+dataset_pre.info()
+
+# Treating observations with empty values (null/NaN) in the dataset_pre
+mask = dataset_pre['PREÇO MÉDIO DISTRIBUIÇÃO'].isnull()
+mask
+dataset_pre[mask]['PREÇO MÉDIO DISTRIBUIÇÃO']
+dataset[mask]['PREÇO MÉDIO DISTRIBUIÇÃO'] # Check the original values
+dataset.info() # Returns NO null-values, but in fact, there are
+
+# Cases of treatment
+# 
+# Fill NaN with 0
+dataset_pre_fill = dataset_pre.copy()
+dataset_pre_fill = dataset_pre['PREÇO MÉDIO DISTRIBUIÇÃO'].fillna(0)
+dataset_pre_fill[mask]
+
+# Fill NaN with a constant values
+dataset_pre_fill = dataset_pre.fillna(value={
+    'PREÇO MÉDIO DISTRIBUIÇÃO': 10,
+    'DESVIO PADRÃO DISTRIBUIÇÃO': 20,
+    'PREÇO MÍNIMO DISTRIBUIÇÃO': 30,
+    'PREÇO MÁXIMO DISTRIBUIÇÃO': 'vazio'
+})
+dataset_pre_fill[mask][[ 'PREÇO MÉDIO DISTRIBUIÇÃO', 'DESVIO PADRÃO DISTRIBUIÇÃO', 'PREÇO MÍNIMO DISTRIBUIÇÃO', 'PREÇO MÁXIMO DISTRIBUIÇÃO']]
+
+# Remove samples with NaN
+dataset_pre_drop = dataset_pre.dropna()
+dataset_pre_drop.info()
+# Remove inplace
+dataset_pre.dropna(inplace=True)
+dataset_pre.info()
+dataset_pre.to_csv('./datasets/GasPricesinBrazil_2004-2019_preprocessed.csv', index=False)
